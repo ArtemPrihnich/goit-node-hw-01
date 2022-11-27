@@ -4,10 +4,9 @@ const path = require("path")
 const operationPath = path.resolve(__dirname, "actions")
 const contactsOperations = require(operationPath)
 
-// TODO: задокументировать каждую функцию
- async function listContacts() {
+ async function getListContacts() {
   const list = await contactsOperations.getAll()
-  return console.log(list)
+  return console.table(list)
 }
 
 async function getContactById(contactId) {
@@ -20,8 +19,14 @@ async function removeContact(contactId) {
   return console.log(contact)
 }
 
-removeContact('4')
+async function addContact(name, email, phone) {
+  const contact = await contactsOperations.add({ name, email, phone })
+  return console.log(contact)
+}
 
-function addContact(name, email, phone) {
-  // ...твой код
+module.exports = {
+  getListContacts,
+  getContactById,
+  removeContact,
+  addContact
 }
